@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function test(abc) {
+            alert('test:' + abc);
+            return '哈哈';
+        }
+
+        Function.prototype.before = function (fn) {
+            var __self = this; // 保住this
+            return function () {
+                if(fn.apply(__self)===false){ //先调用before,需要做阻断判断
+                    return false;
+                }; 
+                return __self.apply(__self,arguments); 
+            }
+        }
+
+        Function.prototype.after = function (fn) {
+            var __self = this; // 这里的self已经是before return 出的匿名函数
+            return function () {
+                let result = __self.apply(__self,arguments); //如果先调用before,这里的__self就是匿名函数
+                // 因为存在阻断情况，这里的result可能会是匿名函数return 出来的false
+                if(result!==false){  // ⚠️ 如果先调用 after，在 test 函数返回 false的情况下会导致这里阻断
+                    fn.apply(__self); 
+                }
+                return  result; //再返回test的调用结果。
+            }
+        }
+
+        // test.before(function () {
+        //     alert(1);
+        // }).after(function () {
+        //     alert(3);
+        // })('asdfasfd');
+
+
+        var a = test.after(function () {
+            alert(3);
+        }).before(function () {
+            alert(1);
+        })('asdfasfd');
+        
+        console.log(a);
+        
+
+
+    </script>
+
+</body>
+
+</html>
