@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addEventListener</title>
+    <style>
+        #div{
+            padding: 40px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        <button id="button">点击这里</button>
+    </div>
+
+    <script>
+
+        let div = document.querySelector('#div')
+        let button = document.querySelector('#button');
+
+        div.addEventListener('click',{
+                handleEvent(event){
+                    console.log('div click');    
+                }
+            },
+            false,
+            {
+                capture:true,
+                once:true
+            }
+        )
+
+        div.addEventListener('click',{
+                handleEvent(event){
+                    console.log('div click bubbing');    
+                }
+            },
+            {
+                capture:false,
+                once:true,
+            }
+        )
+
+
+
+        button.addEventListener('click',{
+            handleEvent:function(){
+                console.log('button click');
+            }
+        },true); //在捕获阶段触发
+
+
+    </script>
+    
+</body>
+</html>
