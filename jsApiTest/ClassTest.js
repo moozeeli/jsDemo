@@ -23,3 +23,4 @@ class Man extends Person{
 var litong = new Man(28,'litong')
 litong.sayName();
 litong.test()
+
