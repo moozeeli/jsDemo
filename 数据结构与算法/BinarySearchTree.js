@@ -1,99 +1,99 @@
 function BinarySearchTree(){
-    var Node = function(key){
-        this.key = key;
-        this.left = null;
-        this.right = null;
-    }
+  var Node = function(key){
+    this.key = key;
+    this.left = null;
+    this.right = null;
+  };
 
-    var root = null;
+  var root = null;
 
-    var insertNode = function(node, newNode){
-        if(newNode.key < node.key){
-            if(node.left === null){
-                node.left = newNode;
-            }else{
-                insertNode(node.left,newNode)
-            }
-        }else{
-            if(node.right === null){
-                node.right = newNode
-            }else{
-                insertNode(node.right,newNode);
-            }
-        }
+  var insertNode = function(node, newNode){
+    if(newNode.key < node.key){
+      if(node.left === null){
+        node.left = newNode;
+      }else{
+        insertNode(node.left,newNode);
+      }
+    }else{
+      if(node.right === null){
+        node.right = newNode;
+      }else{
+        insertNode(node.right,newNode);
+      }
     }
+  };
 
-    this.insert = function(key){
-        var newNode = new Node(key);
-        if(root ===null){
-            root = newNode;
-        }else{
-            insertNode(root,newNode);
-        }
+  this.insert = function(key){
+    var newNode = new Node(key);
+    if(root ===null){
+      root = newNode;
+    }else{
+      insertNode(root,newNode);
     }
+  };
 
-    // 便利
+  // 便利
 
-    var inOrderTraverseNode = function(node,callback){
-        if(node !== null){
-            inOrderTraverseNode(node.left, callback);
-            callback(node.key);
-            inOrderTraverseNode(node.right,callback);
-        }
+  var inOrderTraverseNode = function(node,callback){
+    if(node !== null){
+      inOrderTraverseNode(node.left, callback);
+      callback(node.key);
+      inOrderTraverseNode(node.right,callback);
     }
-    var perOrderTraverseNode = function(node,callback){
-        if(node !== null){
-            callback(node.key);
-            perOrderTraverseNode(node.left, callback);
-            perOrderTraverseNode(node.right, callback)
-        }
+  };
+  var perOrderTraverseNode = function(node,callback){
+    if(node !== null){
+      callback(node.key);
+      perOrderTraverseNode(node.left, callback);
+      perOrderTraverseNode(node.right, callback);
     }
-    var postOrderTraverseNode = function(node,callback){
-        if(node != null){
-            postOrderTraverseNode(node.left, callback);
-            postOrderTraverseNode(node.right, callback);
-            callback(node.key);
-        }
+  };
+  var postOrderTraverseNode = function(node,callback){
+    if(node != null){
+      postOrderTraverseNode(node.left, callback);
+      postOrderTraverseNode(node.right, callback);
+      callback(node.key);
     }
+  };
 
-    this.postOrderTraverse = function(callback){
-        postOrderTraverseNode(root, callback)
-    }
+  this.postOrderTraverse = function(callback){
+    postOrderTraverseNode(root, callback);
+  };
 
-    this.perOrderTraverse = function(callback){
-        perOrderTraverseNode(root, callback)
-    }
+  this.perOrderTraverse = function(callback){
+    perOrderTraverseNode(root, callback);
+  };
 
-    this.inOrderTraverse = function(callback){
-        inOrderTraverseNode(root, callback);
-    };
+  this.inOrderTraverse = function(callback){
+    inOrderTraverseNode(root, callback);
+  };
 
-    var minNode = function (node){
-        if(node){
-            while(node && node.left !== null){
-                node = node .left
-            }
-            return node.key;
-        }
-        return null;
+  var minNode = function (node){
+    if(node){
+      while(node && node.left !== null){
+        node = node .left;
+      }
+      return node.key;
     }
-    var maxNode = function(node){
-        if(node){
-            while(node&&node.right!=null){
-                node = node.right;
-            }
-            return node.key;
-        }
-        return null;
+    return null;
+  };
+  var maxNode = function(node){
+    if(node){
+      while(node&&node.right!=null){
+        node = node.right;
+      }
+      return node.key;
     }
+    return null;
+  };
 
-    this.min = function(){
-        return minNode(root)
-    }
+  this.min = function(){
+    return minNode(root);
+  };
 
-    this.max = function(){
-        return maxNode(root)
-    }
+  this.max = function(){
+    return maxNode(root);
+  };
 
     
 
@@ -118,13 +118,13 @@ tree.insert(25);
 tree.insert(6);
 
 function printNode(value){ //{6} 
- console.log(value); 
+  console.log(value); 
 } 
 tree.inOrderTraverse(printNode); //{7}
-console.log('***********');
+console.log("***********");
 tree.perOrderTraverse(printNode);
-console.log('***********');
+console.log("***********");
 tree.postOrderTraverse(printNode);
 
-console.log('***********');
+console.log("***********");
 console.log(tree.min());
