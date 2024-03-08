@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>error in separated script</title>
+</head>
+<body>
+  <script>
+  error;  // 报错
+  console.log('1');
+  </script>
+  <script>
+  console. log('2');  // 在宏任务中，会正常打印
+  </script>
+
+</body>
+</html>
